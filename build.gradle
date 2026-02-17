@@ -24,8 +24,8 @@ ext {
     checkstyleVersion = '10.3.4'
 }
 
-dependencies {
-}
+//dependencies {
+//}
 
 testing {
     suites {
@@ -59,28 +59,27 @@ jacoco {
 }
 test.finalizedBy jacocoTestReport
 
-if (project.hasProperty('staticAnalysis')) {
-    apply plugin: 'com.github.spotbugs'
+apply plugin: 'com.github.spotbugs'
 
-    spotbugs {
-        ignoreFailures = true
-        showProgress = true
-    }
+spotbugs {
+    ignoreFailures = true
+    showProgress = true
+}
 
-    // Configure SpotBugs tasks to generate HTML reports
-    tasks.withType(com.github.spotbugs.snom.SpotBugsTask) {
-        reports {
-            html {
-                required = true
-                outputLocation = file("$buildDir/reports/spotbugs/${name}.html")
-                stylesheet = 'fancy-hist.xsl'
-            }
-            xml {
-                required = false
-            }
+// Configure SpotBugs tasks to generate HTML reports
+tasks.withType(com.github.spotbugs.snom.SpotBugsTask) {
+    reports {
+        html {
+            required = true
+            outputLocation = file("$buildDir/reports/spotbugs/${name}.html")
+            stylesheet = 'fancy-hist.xsl'
+        }
+        xml {
+            required = false
         }
     }
 }
+
 
 // Checkstyle configuration (always available)
 checkstyle {
