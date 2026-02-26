@@ -1,14 +1,14 @@
 public class Animal {
-    private String id;
-    private String species;
+    private int id;
     private String name;
+    private String species;
     private int age;
     private int weight;
 
-    public Animal(String id, String species, String name, int age, int weight) {
+    public Animal(int id, String name, String species, int age, int weight) {
         this.id = id;
-        this.species = species;
         this.name = name;
+        this.species = species;
         this.age = age;
         this.weight = weight;
     }

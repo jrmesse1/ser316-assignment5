@@ -1,4 +1,6 @@
 public class Main {
+    private static final int SHELTER_INITIAL_ANIMALS = 5;
+    private static final int SHELTER_INITIAL_STAFF = 3;
     private static final int SIMULATION_LENGTH_DAYS = 7;
     private static final int SIMULATION_LENGTH_HOURS = SIMULATION_LENGTH_DAYS * 24;
 
@@ -11,10 +13,17 @@ public class Main {
     }
 
     /**
-     * Shelter has at least 5 animals at startup.
+     * Create shelter and add all the animals at startup.
      */
     private static Shelter populateShelter() {
-        return new Shelter();
+        Shelter shelter = new Shelter();
+        for (int i = 0; i < SHELTER_INITIAL_STAFF; i++) {
+            shelter.hireStaff();
+        }
+        for (int i = 0; i < SHELTER_INITIAL_ANIMALS; i++) {
+            shelter.intakeAnimal();
+        }
+        return shelter;
     }
 
     /**
