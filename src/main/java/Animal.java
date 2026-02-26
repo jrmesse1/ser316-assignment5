@@ -16,9 +16,7 @@ public class Animal {
     }
 
     public void runCycle() {
-        if (makeNoiseCoin.flip()) {
-            makeNoise();
-        }
+        if (makeNoiseCoin.flip()) makeNoise();
     }
 
     private void makeNoise() {

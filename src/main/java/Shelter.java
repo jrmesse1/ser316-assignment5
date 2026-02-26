@@ -8,6 +8,8 @@ public class Shelter {
     private NameGenerator animalNamer = new NameGenerator("animal_names.txt");
     private NameGenerator staffNamer =  new NameGenerator("staff_names.txt");
 
+    private WeightedCoin newAnimalCoin = new WeightedCoin(6);
+
     /**
      * Create shelter and add all the animals and staff at startup.
      */
@@ -45,6 +47,8 @@ public class Shelter {
     }
 
     public void runCycle() {
+        if (newAnimalCoin.flip()) intakeAnimal();
+
         for (Staff employee : staff) {
             employee.runCycle();
         }
