@@ -43,4 +43,13 @@ public class Shelter {
         animals.add(new Animal(id, name, species, 99, 99));
         System.out.printf("[SHELTER] Took in a %s named %s\n", species, name);
     }
+
+    public void runCycle() {
+        for (Staff employee : staff) {
+            employee.runCycle();
+        }
+        for (Animal animal : animals) {
+            animal.runCycle();
+        }
+    }
 }

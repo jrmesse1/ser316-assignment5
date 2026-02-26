@@ -8,4 +8,8 @@ public class Staff {
         this.name = name;
         this.role = role;
     }
+
+    public void runCycle() {
+
+    }
 }
