@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Shelter {
     private static final int INITIAL_ANIMALS = 5;
@@ -41,9 +42,14 @@ public class Shelter {
     public void intakeAnimal() {
         int id = animals.size();
         String name = animalNamer.getName();
-        String species = "Dog";
+
+        // get random species
+        Random random =  new Random();
+        int i = random.nextInt(AnimalSpecies.values().length);
+        AnimalSpecies species = AnimalSpecies.values()[i];
+
         animals.add(new Animal(id, name, species, 99, 99));
-        System.out.printf("[SHELTER] Took in a %s named %s\n", species, name);
+        System.out.printf("[SHELTER] Took in a %s named %s\n", species.toString().toLowerCase(), name);
     }
 
     public void runCycle() {

@@ -1,13 +1,13 @@
 public class Animal {
     private int id;
     private String name;
-    private String species;
+    private AnimalSpecies species;
     private int age;
     private int weight;
 
     private WeightedCoin makeNoiseCoin = new WeightedCoin(5);
 
-    public Animal(int id, String name, String species, int age, int weight) {
+    public Animal(int id, String name, AnimalSpecies species, int age, int weight) {
         this.id = id;
         this.name = name;
         this.species = species;
@@ -21,10 +21,14 @@ public class Animal {
 
     private void makeNoise() {
         String noise = "...";
-        if (species == "Dog") {
+        if (species == AnimalSpecies.DOG) {
             noise = "woof";
-        }  else if (species == "Cat") {
+        }  else if (species == AnimalSpecies.CAT) {
             noise = "meow";
+        } else if (species == AnimalSpecies.BIRD) {
+            noise = "chirp";
+        } else if (species == AnimalSpecies.SNAKE) {
+            noise = "hissss";
         }
         System.out.printf("[ANIMAL] %s says %s\n", name, noise);
     }

@@ -1,5 +1,4 @@
 public class Main {
-
     private static final int SIMULATION_LENGTH_DAYS = 7;
     private static final int SIMULATION_LENGTH_HOURS = SIMULATION_LENGTH_DAYS * 24;
 
