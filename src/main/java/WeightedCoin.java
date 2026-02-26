@@ -8,11 +8,11 @@ public class WeightedCoin {
      * @param winPercentage
      */
     public WeightedCoin(int winPercentage) {
-        winPercentage = winPercentage;
+        this.winPercentage = winPercentage;
     }
 
     public boolean flip() {
         Random random = new Random();
-        return winPercentage >= random.nextInt(101) ;
+        return winPercentage >= random.nextInt(101);
     }
 }
