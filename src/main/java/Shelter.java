@@ -1,14 +1,25 @@
 import java.util.ArrayList;
 
 public class Shelter {
+    private static final int INITIAL_ANIMALS = 5;
+    private static final int INITIAL_STAFF = 3;
     private ArrayList<Animal> animals;
     private ArrayList<Staff> staff;
     private NameGenerator animalNamer = new NameGenerator("animal_names.txt");
     private NameGenerator staffNamer =  new NameGenerator("staff_names.txt");
 
+    /**
+     * Create shelter and add all the animals and staff at startup.
+     */
     public Shelter() {
         animals = new ArrayList<>();
         staff = new ArrayList<>();
+        for (int i = 0; i < INITIAL_STAFF; i++) {
+            hireStaff();
+        }
+        for (int i = 0; i < INITIAL_ANIMALS; i++) {
+            intakeAnimal();
+        }
     }
 
     /**

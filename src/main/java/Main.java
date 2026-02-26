@@ -1,29 +1,14 @@
 public class Main {
-    private static final int SHELTER_INITIAL_ANIMALS = 5;
-    private static final int SHELTER_INITIAL_STAFF = 3;
+
     private static final int SIMULATION_LENGTH_DAYS = 7;
     private static final int SIMULATION_LENGTH_HOURS = SIMULATION_LENGTH_DAYS * 24;
 
     public static void main(String[] args) {
+        Shelter shelter = new Shelter();
         System.out.println("Starting Simulation");
-        Shelter shelter = populateShelter();
         for (int currentHour = 0; currentHour < SIMULATION_LENGTH_HOURS; currentHour++) {
             runCycle(currentHour, shelter);
         }
-    }
-
-    /**
-     * Create shelter and add all the animals at startup.
-     */
-    private static Shelter populateShelter() {
-        Shelter shelter = new Shelter();
-        for (int i = 0; i < SHELTER_INITIAL_STAFF; i++) {
-            shelter.hireStaff();
-        }
-        for (int i = 0; i < SHELTER_INITIAL_ANIMALS; i++) {
-            shelter.intakeAnimal();
-        }
-        return shelter;
     }
 
     /**
