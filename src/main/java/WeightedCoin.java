@@ -1,19 +1,19 @@
 import java.util.Random;
 
 public class WeightedCoin {
-    private final int winPercentage;
+    private final double winFraction;
 
     /**
-     * Coin flip that will win a certain percentage of the time.
+     * Coin flip that will win a certain fraction of the time.
      *
-     * @param winPercentage
+     * @param winFraction
      */
-    public WeightedCoin(int winPercentage) {
-        this.winPercentage = winPercentage;
+    public WeightedCoin(double winFraction) {
+        this.winFraction = winFraction;
     }
 
     public boolean flip() {
         Random random = new Random();
-        return winPercentage >= (random.nextInt(100) + 1);
+        return winFraction >= (random.nextDouble());
     }
 }

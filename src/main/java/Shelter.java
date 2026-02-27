@@ -4,13 +4,12 @@ import java.util.Random;
 public class Shelter implements Observer {
     private static final int INITIAL_ANIMALS = 5;
     private static final int INITIAL_STAFF = 3;
-    private int hoursUntilDailyTasksAssigned = 0;
     private final ArrayList<Animal> animals;
     private final ArrayList<Staff> staff;
     private final TaskList taskList = new TaskList();
     private final NameGenerator animalNamer = new NameGenerator("animal_names.txt");
     private final NameGenerator staffNamer = new NameGenerator("staff_names.txt");
-    private final WeightedCoin newAnimalCoin = new WeightedCoin(6);
+    private final WeightedCoin newAnimalCoin = new WeightedCoin(0.0006);
 
     /**
      * Create shelter and add all the animals and staff at startup.
@@ -64,24 +63,20 @@ public class Shelter implements Observer {
 
     @Override
     public void update(String event) {
-        if (event.equals("clock")) {
-            checkDailyTaskAssignment();
+        if (event.equals("day")) {
+            addDailyTaskAssignment();
             taskList.printStats();
+        } else if (event.equals("minute")) {
             if (newAnimalCoin.flip()) intakeAnimal();
         }
     }
 
     /**
-     * Every 24 hours daily tasks need to be assigned for all the animals.
+     * Assign daily tasks for all the animals.
      */
-    private void checkDailyTaskAssignment() {
-        if (hoursUntilDailyTasksAssigned == 0) {
-            // time for daily tasks
-            hoursUntilDailyTasksAssigned = 24;
-            for (Animal animal : animals) taskList.addTask(animal, TaskType.DAILY_EXERCISE);
-            for (Animal animal : animals) taskList.addTask(animal, TaskType.DAILY_FEEDING);
-            for (Animal animal : animals) taskList.addTask(animal, TaskType.ENCLOSURE_CLEANING);
-        }
-        hoursUntilDailyTasksAssigned--;
+    private void addDailyTaskAssignment() {
+        for (Animal animal : animals) taskList.addTask(animal, TaskType.DAILY_EXERCISE);
+        for (Animal animal : animals) taskList.addTask(animal, TaskType.DAILY_FEEDING);
+        for (Animal animal : animals) taskList.addTask(animal, TaskType.ENCLOSURE_CLEANING);
     }
 }

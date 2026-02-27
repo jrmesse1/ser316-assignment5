@@ -7,7 +7,7 @@ public class Animal implements Observer {
     private final AnimalSpecies species;
     private final int age;
     private final int weight;
-    private final WeightedCoin makeNoiseCoin = new WeightedCoin(5);
+    private final WeightedCoin makeNoiseCoin = new WeightedCoin(0.0013);
 
     public Animal(int id, String name) {
         // connect observer to global clock
@@ -49,7 +49,7 @@ public class Animal implements Observer {
     }
 
     public void update(String event) {
-        if (makeNoiseCoin.flip()) makeNoise();
+        if (event.equals("minute") && makeNoiseCoin.flip()) makeNoise();
     }
 
     private void makeNoise() {

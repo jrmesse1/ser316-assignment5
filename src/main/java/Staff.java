@@ -24,11 +24,12 @@ public class Staff implements Observer {
             }
         }
 
-        if (currentTask != null && event == "clock") {
+        if (currentTask != null && event.equals("minute")) {
             // if time has passed, then do work on the current task
             currentTask.decrementTimeRemaining();
             if (currentTask.isComplete()) {
-                Logger.log("STAFF", String.format("%s completed %s after %d hour(s) of work", name, currentTask, currentTask.getDuration()));
+                double duration = ((double) currentTask.getDuration()) / 60;
+                Logger.log("STAFF", String.format("%s completed %s after %.1fh of work", name, currentTask, duration));
             }
         }
     }

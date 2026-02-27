@@ -12,12 +12,13 @@ public class Task {
         this.type = type;
 
         if (type == TaskType.INTAKE_EXAM || type == TaskType.ENCLOSURE_CLEANING) {
-            this.duration = 2;
+            this.duration = 120;
         } else if (type == TaskType.VACCINATION) {
-            this.duration = 3;
+            this.duration = 30;
+        } else if (type == TaskType.DAILY_FEEDING) {
+            this.duration = 10;
         } else {
-            // feeding, exercise
-            this.duration = 1;
+            this.duration = 40;
         }
         this.timeRemainingHours = this.duration;
     }
