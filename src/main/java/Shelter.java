@@ -4,6 +4,7 @@ import java.util.Random;
 public class Shelter implements Observer {
     private static final int INITIAL_ANIMALS = 5;
     private static final int INITIAL_STAFF = 3;
+    private int hoursUntilDailyTasksAssigned = 0;
     private ArrayList<Animal> animals;
     private ArrayList<Staff> staff;
     private TaskList taskList = new TaskList();
@@ -66,7 +67,24 @@ public class Shelter implements Observer {
 
     @Override
     public void update(String event) {
-        taskList.printStats();
-        if (newAnimalCoin.flip()) intakeAnimal();
+        if (event.equals("clock")) {
+            checkDailyTaskAssignment();
+            taskList.printStats();
+            if (newAnimalCoin.flip()) intakeAnimal();
+        }
+    }
+
+    /**
+     * Every 24 hours daily tasks need to be assigned for all the animals.
+     */
+    private void checkDailyTaskAssignment() {
+        if (hoursUntilDailyTasksAssigned == 0) {
+            // time for daily tasks
+            hoursUntilDailyTasksAssigned = 24;
+            for (Animal animal : animals) taskList.addTask(animal, TaskType.DAILY_EXERCISE);
+            for (Animal animal : animals) taskList.addTask(animal, TaskType.DAILY_FEEDING);
+            for (Animal animal : animals) taskList.addTask(animal, TaskType.ENCLOSURE_CLEANING);
+        }
+        hoursUntilDailyTasksAssigned--;
     }
 }
