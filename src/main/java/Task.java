@@ -1,11 +1,9 @@
 public class Task {
-    private Animal animal;
+    private final Animal animal;
     private Staff assignee;
-    private TaskType type;
-
+    private final TaskType type;
     // how long the task should take
-    private int duration;
-
+    private final int duration;
     // how long is left on the task
     private int timeRemainingHours;
 
@@ -24,12 +22,16 @@ public class Task {
         this.timeRemainingHours = this.duration;
     }
 
-    public void setAssignee(Staff staff) {
-        this.assignee = staff;
+    public int getDuration() {
+        return duration;
     }
 
     public Staff getAssignee() {
         return this.assignee;
+    }
+
+    public void setAssignee(Staff staff) {
+        this.assignee = staff;
     }
 
     public boolean isComplete() {
