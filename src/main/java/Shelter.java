@@ -59,7 +59,21 @@ public class Shelter implements Observer {
         Random random = new Random();
         int i = random.nextInt(AnimalSpecies.values().length);
         AnimalSpecies species = AnimalSpecies.values()[i];
-        Animal animal = new Animal(id, name, species, 99, 99);
+
+        int age = random.nextInt(10) + 1;
+        int weight;
+        if (species == AnimalSpecies.BIRD) {
+            weight = 0;
+        } else if (species == AnimalSpecies.SNAKE) {
+            weight = random.nextInt(3) + 1;
+        } else if (species == AnimalSpecies.DOG) {
+            weight = random.nextInt(65) + 5;
+        } else {
+            // cat or rabbit
+            weight = random.nextInt(8) + 1;
+        }
+        
+        Animal animal = new Animal(id, name, species, age, weight);
         animals.add(animal);
         clock.attach(animal);
         System.out.printf("[SHELTER] A new %s arrived. Their name is %s.\n", species.toString().toLowerCase(), name);
