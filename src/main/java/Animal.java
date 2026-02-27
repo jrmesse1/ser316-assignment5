@@ -8,6 +8,7 @@ public class Animal implements Observer {
     private final int age;
     private final int weight;
     private final WeightedCoin makeNoiseCoin = new WeightedCoin(0.0013);
+    private final AnimalHealth health;
 
     public Animal(int id, String name) {
         // connect observer to global clock
@@ -23,6 +24,10 @@ public class Animal implements Observer {
         Random random = new Random();
         int i = random.nextInt(AnimalSpecies.values().length);
         this.species = AnimalSpecies.values()[i];
+
+        // get random health
+        i = random.nextInt(AnimalHealth.values().length);
+        this.health = AnimalHealth.values()[i];
 
         // get random age
         this.age = random.nextInt(10) + 1;
@@ -72,5 +77,9 @@ public class Animal implements Observer {
 
     public int getAge() {
         return this.age;
+    }
+
+    public String getHealth() {
+        return health.toString().toLowerCase();
     }
 }
