@@ -1,14 +1,13 @@
 import java.util.Random;
 
 public class Animal implements Observer {
-    private int id;
-    private String name;
-    private AnimalStatus status;
-    private AnimalSpecies species;
-    private int age;
-    private int weight;
-
-    private WeightedCoin makeNoiseCoin = new WeightedCoin(5);
+    private final int id;
+    private final String name;
+    private final AnimalStatus status;
+    private final AnimalSpecies species;
+    private final int age;
+    private final int weight;
+    private final WeightedCoin makeNoiseCoin = new WeightedCoin(5);
 
     public Animal(int id, String name) {
         this.id = id;
@@ -38,6 +37,10 @@ public class Animal implements Observer {
         }
     }
 
+    public String getName() {
+        return name;
+    }
+
     public String getSpecies() {
         return species.toString().toLowerCase();
     }
@@ -50,7 +53,7 @@ public class Animal implements Observer {
         String noise = "...";
         if (species == AnimalSpecies.DOG) {
             noise = "woof";
-        }  else if (species == AnimalSpecies.CAT) {
+        } else if (species == AnimalSpecies.CAT) {
             noise = "meow";
         } else if (species == AnimalSpecies.BIRD) {
             noise = "chirp";
