@@ -10,6 +10,9 @@ public class Animal implements Observer {
     private final WeightedCoin makeNoiseCoin = new WeightedCoin(5);
 
     public Animal(int id, String name) {
+        // connect observer to global clock
+        Clock.getInstance().attach(this);
+
         this.id = id;
         this.name = name;
 

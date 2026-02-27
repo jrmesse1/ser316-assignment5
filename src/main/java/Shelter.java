@@ -10,16 +10,14 @@ public class Shelter implements Observer {
     private TaskList taskList = new TaskList();
     private NameGenerator animalNamer = new NameGenerator("animal_names.txt");
     private NameGenerator staffNamer =  new NameGenerator("staff_names.txt");
-    private Clock clock;
     private WeightedCoin newAnimalCoin = new WeightedCoin(6);
 
     /**
      * Create shelter and add all the animals and staff at startup.
      */
-    public Shelter(Clock clock) {
-        // connect observer
-        this.clock = clock;
-        clock.attach(this);
+    public Shelter() {
+        // connect observer to global clock
+        Clock.getInstance().attach(this);
 
         // create initial animals and staff
         animals = new ArrayList<>();
@@ -46,7 +44,6 @@ public class Shelter implements Observer {
 
         Staff employee = new Staff(id, name, role, taskList);
         staff.add(employee);
-        clock.attach(employee);
         System.out.printf("[SHELTER] Hired %s as a %s\n", name, role.toString().toLowerCase());
     }
 
@@ -58,7 +55,7 @@ public class Shelter implements Observer {
         String name = animalNamer.getName();
         Animal animal = new Animal(id, name);
         animals.add(animal);
-        clock.attach(animal);
+        Clock.getInstance().attach(animal);
         System.out.printf("[SHELTER] A new %s arrived. Their name is %s.\n", animal.getSpecies(), name);
 
         // schedule an intake exam

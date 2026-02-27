@@ -5,6 +5,9 @@ public class Staff implements Observer {
     private TaskList taskList;
 
     public Staff(int id, String name, StaffRole role, TaskList taskList) {
+        // connect observer to global clock
+        Clock.getInstance().attach(this);
+
         this.id = id;
         this.name = name;
         this.role = role;
@@ -20,7 +23,7 @@ public class Staff implements Observer {
                 System.out.printf("[STAFF] %s started working on %s\n", name, currentTask.toString());
             }
         }
-        
+
         if (currentTask != null && event == "clock") {
             // if time has passed, then do work on the current task
             currentTask.decrementTimeRemaining();

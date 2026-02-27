@@ -3,8 +3,8 @@ public class Main {
     private static final int SIMULATION_LENGTH_HOURS = SIMULATION_LENGTH_DAYS * 24;
 
     public static void main(String[] args) {
-        Clock clock = new Clock();
-        Shelter shelter = new Shelter(clock);
+        Clock clock = Clock.getInstance();
+        Shelter shelter = new Shelter();
         System.out.println("Starting Simulation");
 
         for (int i = 0; i < SIMULATION_LENGTH_HOURS; i++) {
