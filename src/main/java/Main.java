@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
         Clock clock = Clock.getInstance();
         Shelter shelter = new Shelter();
-        System.out.println("Starting Simulation");
+        System.out.println("\n[WORLD] Starting Simulation");
 
         for (int i = 0; i < SIMULATION_LENGTH_HOURS; i++) {
             // Run a single cycle of the simulation by incrementing 1 hour

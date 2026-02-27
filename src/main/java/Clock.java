@@ -14,6 +14,10 @@ public class Clock extends Subject {
     }
 
     public String getTime() {
+        if (currentHour < 0) {
+            // simulation has not started yet
+            return "SETUP";
+        }
         return String.format("%02d:00", currentHour % 24);
     }
 }
