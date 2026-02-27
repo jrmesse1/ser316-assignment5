@@ -1,4 +1,4 @@
-public class Staff {
+public class Staff implements Observer {
     int id;
     String name;
     String role;
@@ -9,7 +9,7 @@ public class Staff {
         this.role = role;
     }
 
-    public void runCycle() {
+    public void update (String event) {
 
     }
 }

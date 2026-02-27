@@ -1,4 +1,4 @@
-public class Animal {
+public class Animal implements Observer {
     private int id;
     private String name;
     private AnimalSpecies species;
@@ -15,7 +15,7 @@ public class Animal {
         this.weight = weight;
     }
 
-    public void runCycle() {
+    public void update(String event) {
         if (makeNoiseCoin.flip()) makeNoise();
     }
 
