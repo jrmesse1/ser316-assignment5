@@ -16,7 +16,7 @@ public class TaskList extends Subject {
                 inProgress++;
             }
         }
-        System.out.printf("[TASKLIST] Staff have completed %s tasks. They are working on %s and %s are unassigned.\n", completed, inProgress, unassigned);
+        Logger.log("TASKLIST", String.format("Staff have completed %s tasks. They are working on %s and %s are unassigned.", completed, inProgress, unassigned));
     }
 
     public void addTask(Animal animal, TaskType type) {

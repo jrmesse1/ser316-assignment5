@@ -5,12 +5,12 @@ public class Shelter implements Observer {
     private static final int INITIAL_ANIMALS = 5;
     private static final int INITIAL_STAFF = 3;
     private int hoursUntilDailyTasksAssigned = 0;
-    private ArrayList<Animal> animals;
-    private ArrayList<Staff> staff;
-    private TaskList taskList = new TaskList();
-    private NameGenerator animalNamer = new NameGenerator("animal_names.txt");
-    private NameGenerator staffNamer =  new NameGenerator("staff_names.txt");
-    private WeightedCoin newAnimalCoin = new WeightedCoin(6);
+    private final ArrayList<Animal> animals;
+    private final ArrayList<Staff> staff;
+    private final TaskList taskList = new TaskList();
+    private final NameGenerator animalNamer = new NameGenerator("animal_names.txt");
+    private final NameGenerator staffNamer = new NameGenerator("staff_names.txt");
+    private final WeightedCoin newAnimalCoin = new WeightedCoin(6);
 
     /**
      * Create shelter and add all the animals and staff at startup.
@@ -44,7 +44,7 @@ public class Shelter implements Observer {
 
         Staff employee = new Staff(id, name, role, taskList);
         staff.add(employee);
-        System.out.printf("[SHELTER] Hired %s as a %s\n", name, role.toString().toLowerCase());
+        Logger.log("SHELTER", String.format("Hired %s as a %s", name, role.toString().toLowerCase()));
     }
 
     /**
@@ -56,7 +56,7 @@ public class Shelter implements Observer {
         Animal animal = new Animal(id, name);
         animals.add(animal);
         Clock.getInstance().attach(animal);
-        System.out.printf("[SHELTER] A new %s arrived. Their name is %s.\n", animal.getSpecies(), name);
+        Logger.log("SHELTER", String.format("A new %s arrived. Their name is %s. They are %d year(s) old and weigh %d lbs.", animal.getSpecies(), name, animal.getAge(), animal.getWeight()));
 
         // schedule an intake exam
         taskList.addTask(animal, TaskType.INTAKE_EXAM);

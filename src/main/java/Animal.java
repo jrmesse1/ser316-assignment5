@@ -63,6 +63,14 @@ public class Animal implements Observer {
         } else if (species == AnimalSpecies.SNAKE) {
             noise = "hissss";
         }
-        System.out.printf("[ANIMAL] %s says %s\n", name, noise);
+        Logger.log("ANIMAL", String.format("%s says %s", name, noise));
+    }
+
+    public int getWeight() {
+        return this.weight;
+    }
+
+    public int getAge() {
+        return this.age;
     }
 }

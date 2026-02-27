@@ -1,8 +1,8 @@
 public class Staff implements Observer {
-    private int id;
-    private String name;
-    private StaffRole role;
-    private TaskList taskList;
+    private final int id;
+    private final String name;
+    private final StaffRole role;
+    private final TaskList taskList;
 
     public Staff(int id, String name, StaffRole role, TaskList taskList) {
         // connect observer to global clock
@@ -14,13 +14,13 @@ public class Staff implements Observer {
         this.taskList = taskList;
     }
 
-    public void update (String event) {
+    public void update(String event) {
         Task currentTask = taskList.getAssignedTask(this);
         if (currentTask == null) {
             // if the staff member is unassigned, check the task board and pick up a new task
             currentTask = taskList.assignAvailableTask(this);
             if (currentTask != null) {
-                System.out.printf("[STAFF] %s started working on %s\n", name, currentTask.toString());
+                Logger.log("STAFF", String.format("%s started working on %s", name, currentTask));
             }
         }
 
@@ -28,7 +28,7 @@ public class Staff implements Observer {
             // if time has passed, then do work on the current task
             currentTask.decrementTimeRemaining();
             if (currentTask.isComplete()) {
-                System.out.printf("[STAFF] %s completed %s after %d hour(s) of work\n", name, currentTask.toString(), currentTask.getDuration());
+                Logger.log("STAFF", String.format("%s completed %s after %d hour(s) of work", name, currentTask, currentTask.getDuration()));
             }
         }
     }
