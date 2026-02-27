@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Animal implements Observer {
     private int id;
     private String name;
@@ -8,13 +10,36 @@ public class Animal implements Observer {
 
     private WeightedCoin makeNoiseCoin = new WeightedCoin(5);
 
-    public Animal(int id, String name, AnimalSpecies species, int age, int weight) {
+    public Animal(int id, String name) {
         this.id = id;
         this.name = name;
+
+        // new animals start in intake
         this.status = AnimalStatus.INTAKE;
-        this.species = species;
-        this.age = age;
-        this.weight = weight;
+
+        // get random species
+        Random random = new Random();
+        int i = random.nextInt(AnimalSpecies.values().length);
+        this.species = AnimalSpecies.values()[i];
+
+        // get random age
+        this.age = random.nextInt(10) + 1;
+
+        // get random weight
+        if (species == AnimalSpecies.BIRD) {
+            this.weight = 0;
+        } else if (species == AnimalSpecies.SNAKE) {
+            this.weight = random.nextInt(3) + 1;
+        } else if (species == AnimalSpecies.DOG) {
+            this.weight = random.nextInt(65) + 5;
+        } else {
+            // cat or rabbit
+            this.weight = random.nextInt(8) + 1;
+        }
+    }
+
+    public String getSpecies() {
+        return species.toString().toLowerCase();
     }
 
     public void update(String event) {
