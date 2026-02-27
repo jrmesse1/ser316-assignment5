@@ -36,11 +36,16 @@ public class Shelter implements Observer {
     public void hireStaff() {
         int id = staff.size();
         String name = staffNamer.getName();
-        String role = "Vet";
+
+        // get random role
+        Random random = new Random();
+        int i = random.nextInt(StaffRole.values().length);
+        StaffRole role = StaffRole.values()[i];
+
         Staff employee = new Staff(id, name, role);
         staff.add(employee);
         clock.attach(employee);
-        System.out.printf("[SHELTER] Hired %s as a %s\n", name, role);
+        System.out.printf("[SHELTER] Hired %s as a %s\n", name, role.toString().toLowerCase());
     }
 
     /**
