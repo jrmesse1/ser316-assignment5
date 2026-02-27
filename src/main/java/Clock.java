@@ -12,9 +12,9 @@ public class Clock extends Subject {
 
     public void incrementCurrentTime() {
         currentMinute++;
-        if (currentMinute % MINUTES_IN_HOUR == 0) {
-            // print time if we're at the hour mark
-            System.out.printf("\n[CLOCK] Day: %d Time: %s\n", currentMinute / MINUTES_IN_DAY + 1, getTime());
+        if (currentMinute % MINUTES_IN_DAY == 0) {
+            // print time if we're starting a new day
+            Logger.log("CLOCK",String.format("Starting Day %d", currentMinute / MINUTES_IN_DAY + 1));
         }
         if (currentMinute % MINUTES_IN_DAY == 0) notifyObservers("day");
         if (currentMinute % MINUTES_IN_HOUR == 0) notifyObservers("hour");
