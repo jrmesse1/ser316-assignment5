@@ -62,7 +62,7 @@ public class Shelter implements Observer {
         Animal animal = new Animal(id, name, species, 99, 99);
         animals.add(animal);
         clock.attach(animal);
-        System.out.printf("[SHELTER] Took in a %s named %s\n", species.toString().toLowerCase(), name);
+        System.out.printf("[SHELTER] A new %s arrived. Their name is %s.\n", species.toString().toLowerCase(), name);
     }
 
     @Override

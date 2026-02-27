@@ -1,6 +1,7 @@
 public class Animal implements Observer {
     private int id;
     private String name;
+    private AnimalStatus status;
     private AnimalSpecies species;
     private int age;
     private int weight;
@@ -10,6 +11,7 @@ public class Animal implements Observer {
     public Animal(int id, String name, AnimalSpecies species, int age, int weight) {
         this.id = id;
         this.name = name;
+        this.status = AnimalStatus.INTAKE;
         this.species = species;
         this.age = age;
         this.weight = weight;
