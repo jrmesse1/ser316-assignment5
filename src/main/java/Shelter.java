@@ -6,6 +6,7 @@ public class Shelter implements Observer {
     private static final int INITIAL_STAFF = 3;
     private ArrayList<Animal> animals;
     private ArrayList<Staff> staff;
+    private TaskList taskList = new TaskList();
     private NameGenerator animalNamer = new NameGenerator("animal_names.txt");
     private NameGenerator staffNamer =  new NameGenerator("staff_names.txt");
     private Clock clock;
@@ -42,7 +43,7 @@ public class Shelter implements Observer {
         int i = random.nextInt(StaffRole.values().length);
         StaffRole role = StaffRole.values()[i];
 
-        Staff employee = new Staff(id, name, role);
+        Staff employee = new Staff(id, name, role, taskList);
         staff.add(employee);
         clock.attach(employee);
         System.out.printf("[SHELTER] Hired %s as a %s\n", name, role.toString().toLowerCase());
@@ -58,10 +59,14 @@ public class Shelter implements Observer {
         animals.add(animal);
         clock.attach(animal);
         System.out.printf("[SHELTER] A new %s arrived. Their name is %s.\n", animal.getSpecies(), name);
+
+        // schedule an intake exam
+        taskList.addTask(animal, TaskType.INTAKE_EXAM);
     }
 
     @Override
     public void update(String event) {
+        taskList.printStats();
         if (newAnimalCoin.flip()) intakeAnimal();
     }
 }
