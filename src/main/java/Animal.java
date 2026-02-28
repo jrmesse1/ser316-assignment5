@@ -70,23 +70,23 @@ public class Animal implements Observer {
     }
 
     public void update(String event) {
-        if (event.equals("minute") && status != AnimalStatus.ADOPTED && makeNoiseCoin.flip()) makeNoise();
+        if (event.equals("minute") && status != AnimalStatus.ADOPTED && makeNoiseCoin.flip())
+            Logger.log("ANIMAL", String.format("%s says %s", name, getNoise()));
     }
 
-    private void makeNoise() {
-        String noise = "...";
+    public String getNoise() {
         if (species == AnimalSpecies.DOG) {
-            noise = "woof";
+            return "woof";
         } else if (species == AnimalSpecies.CAT) {
-            noise = "meow";
+            return "meow";
         } else if (species == AnimalSpecies.BIRD) {
-            noise = "chirp";
+            return "chirp";
         } else if (species == AnimalSpecies.SNAKE) {
-            noise = "hissss";
-        } else if (species == AnimalSpecies.RABBIT) {
-            noise = "munch munch";
+            return "hissss";
+        } else {
+            // rabbit or unspecified animal. anything can munch
+            return "munch munch";
         }
-        Logger.log("ANIMAL", String.format("%s says %s", name, noise));
     }
 
     public int getWeight() {
