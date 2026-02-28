@@ -3,13 +3,12 @@ import java.util.Random;
 public class Animal implements Observer {
     private final int id;
     private final String name;
-    private final AnimalStatus status;
     private final AnimalSpecies species;
     private final int age;
     private final int weight;
     private final WeightedCoin makeNoiseCoin = new WeightedCoin(0.0013);
     private final AnimalHealth health;
-
+    private AnimalStatus status;
     public Animal(int id, String name) {
         // connect observer to global clock
         Clock.getInstance().attach(this);
@@ -45,6 +44,14 @@ public class Animal implements Observer {
         }
     }
 
+    public AnimalStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(AnimalStatus status) {
+        this.status = status;
+    }
+
     public String getName() {
         return name;
     }
@@ -54,7 +61,7 @@ public class Animal implements Observer {
     }
 
     public void update(String event) {
-        if (event.equals("minute") && makeNoiseCoin.flip()) makeNoise();
+        if (event.equals("minute") && status != AnimalStatus.ADOPTED && makeNoiseCoin.flip()) makeNoise();
     }
 
     private void makeNoise() {

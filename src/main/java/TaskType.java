@@ -1,7 +1,0 @@
-public enum TaskType {
-    INTAKE_EXAM,
-    ENCLOSURE_CLEANING,
-    DAILY_FEEDING,
-    DAILY_EXERCISE,
-    VACCINATION,
-}

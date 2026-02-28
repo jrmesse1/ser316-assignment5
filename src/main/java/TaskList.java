@@ -19,8 +19,8 @@ public class TaskList extends Subject {
         Logger.log("TASKLIST", String.format("Staff have completed %s tasks. They are working on %s and %s are unassigned.", completed, inProgress, unassigned));
     }
 
-    public void addTask(Animal animal, TaskType type) {
-        tasks.add(new Task(animal, type));
+    public void addTask(Task task) {
+        tasks.add(task);
         notifyObservers("new_task");
     }
 

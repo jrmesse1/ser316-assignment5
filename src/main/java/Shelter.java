@@ -58,7 +58,7 @@ public class Shelter implements Observer {
         Logger.log("SHELTER", String.format("A new %s arrived. Their name is %s. They are %d year(s) old, weigh %d lbs, and are in %s health.", animal.getSpecies(), name, animal.getAge(), animal.getWeight(), animal.getHealth()));
 
         // schedule an intake exam
-        taskList.addTask(animal, TaskType.INTAKE_EXAM);
+        taskList.addTask(new TaskIntakeExam(animal));
     }
 
     @Override
@@ -75,8 +75,12 @@ public class Shelter implements Observer {
      * Assign daily tasks for all the animals.
      */
     private void addDailyTaskAssignment() {
-        for (Animal animal : animals) taskList.addTask(animal, TaskType.DAILY_EXERCISE);
-        for (Animal animal : animals) taskList.addTask(animal, TaskType.DAILY_FEEDING);
-        for (Animal animal : animals) taskList.addTask(animal, TaskType.ENCLOSURE_CLEANING);
+        for (Animal animal : animals) {
+            if (animal.getStatus() != AnimalStatus.ADOPTED) {
+                taskList.addTask(new TaskDailyExercise(animal));
+                taskList.addTask(new TaskDailyFeeding(animal));
+                taskList.addTask(new TaskEnclosureCleaning(animal));
+            }
+        }
     }
 }

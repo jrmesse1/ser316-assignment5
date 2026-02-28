@@ -1,30 +1,15 @@
-public class Task {
+public abstract class Task {
+    // animal that the task is for
     private final Animal animal;
-    private Staff assignee;
-    private final TaskType type;
     // how long the task should take
-    private final int duration;
+    int duration;
+    private Staff assignee;
     // how long is left on the task
-    private int timeRemainingHours;
+    private int timeRemaining;
 
-    Task(Animal animal, TaskType type) {
+    Task(Animal animal) {
         this.animal = animal;
-        this.type = type;
-
-        if (type == TaskType.INTAKE_EXAM || type == TaskType.ENCLOSURE_CLEANING) {
-            this.duration = 120;
-        } else if (type == TaskType.VACCINATION) {
-            this.duration = 30;
-        } else if (type == TaskType.DAILY_FEEDING) {
-            this.duration = 10;
-        } else {
-            this.duration = 40;
-        }
-        this.timeRemainingHours = this.duration;
-    }
-
-    public int getDuration() {
-        return duration;
+        timeRemaining = getDuration();
     }
 
     public Staff getAssignee() {
@@ -36,15 +21,21 @@ public class Task {
     }
 
     public boolean isComplete() {
-        return timeRemainingHours == 0;
+        return timeRemaining == 0;
     }
 
     public void decrementTimeRemaining() {
-        timeRemainingHours--;
+        timeRemaining--;
     }
+
+    abstract String getName();
+
+    abstract int getDuration();
+
+    abstract void onCompletion(Animal animal);
 
     @Override
     public String toString() {
-        return type.toString().toLowerCase().replace("_", " ") + " for " + animal.getName();
+        return getName() + " for " + animal.getName();
     }
 }
