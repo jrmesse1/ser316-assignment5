@@ -90,7 +90,7 @@ public class Shelter implements Observer {
 
     @Override
     public void update(String event) {
-        if (event.equals("day")) {
+        if (event.equals("day_start")) {
             printStats();
             addDailyTaskAssignment();
             taskList.printStats();

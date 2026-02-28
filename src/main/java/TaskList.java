@@ -20,7 +20,6 @@ public class TaskList extends Subject {
     }
 
     public void addTask(Task task) {
-        if (tasks.contains(task)) return;
         tasks.add(task);
         notifyObservers("new_task");
     }

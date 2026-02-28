@@ -3,6 +3,11 @@ public class Staff implements Observer {
     private final String name;
     private final StaffRole role;
     private final TaskList taskList;
+    private StaffState state = new StaffStateAway();
+
+    // daily work capacity is a little less than a full working day, so tired staff sometimes go home before day_end
+    private final int dailyWorkCapacity = 60 * 7;
+    private int capacityRemaining;
 
     public Staff(int id, String name, StaffRole role, TaskList taskList) {
         // connect observer to global clock
@@ -14,23 +19,34 @@ public class Staff implements Observer {
         this.taskList = taskList;
     }
 
-    public void update(String event) {
-        Task currentTask = taskList.getAssignedTask(this);
-        if (currentTask == null) {
-            // if the staff member is unassigned, check the task board and pick up a new task
-            currentTask = taskList.assignAvailableTask(this);
-            if (currentTask != null) {
-                Logger.log("STAFF", String.format("%s started working on %s", name, currentTask));
-            }
-        }
+    public void resetCapacity() {
+        capacityRemaining = dailyWorkCapacity;
+        state = new StaffStateWorking();
+        Logger.log("STAFF", String.format("%s is back working at the shelter", name));
+    }
 
-        if (currentTask != null && event.equals("minute")) {
-            // if time has passed, then do work on the current task
-            currentTask.decrementTimeRemaining();
-            if (currentTask.isComplete()) {
-                double duration = ((double) currentTask.getDuration()) / 60;
-                Logger.log("STAFF", String.format("%s completed %s after %.1fh of work", name, currentTask, duration));
-            }
+    public void decrementCapacity() {
+        capacityRemaining--;
+        if (capacityRemaining == 0) {
+            // capacity used up, go home
+            Logger.log("STAFF", String.format("%s is tired and going home for the day", name));
+            state = new StaffStateAway();
         }
+    }
+
+    public void goHomeEndOfDay() {
+        // capacity not used up, but go home anyway
+        Logger.log("STAFF", String.format("%s is done with their shift and going home for the day", name));
+        state = new StaffStateAway();
+    }
+
+    public void update(String event) {
+        // depending on current state they will either respond to new tasks or
+        // do nothing because they're away
+        state.update(event, this, taskList);
+    }
+
+    public String getName() {
+        return name;
     }
 }

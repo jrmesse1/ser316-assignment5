@@ -16,9 +16,18 @@ public class Clock extends Subject {
             // print time if we're starting a new day
             Logger.log("CLOCK",String.format("Starting Day %d", currentMinute / MINUTES_IN_DAY + 1));
         }
-        if (currentMinute % MINUTES_IN_DAY == 0) notifyObservers("day");
-        if (currentMinute % MINUTES_IN_HOUR == 0) notifyObservers("hour");
+        if (getHourOfDay() == 9 && getMinuteOfHour() == 0) notifyObservers("day_start");
+        if (getHourOfDay() == 17 && getMinuteOfHour() == 0) notifyObservers("day_end");
+        if (getMinuteOfHour() == 0) notifyObservers("hour");
         notifyObservers("minute");
+    }
+
+    private int getHourOfDay() {
+        return (currentMinute / MINUTES_IN_HOUR) % 24;
+    }
+
+    private int getMinuteOfHour() {
+        return currentMinute % MINUTES_IN_HOUR;
     }
 
     public String getTime() {
@@ -26,6 +35,6 @@ public class Clock extends Subject {
             // simulation has not started yet
             return "SETUP";
         }
-        return String.format("%02d:%02d", (currentMinute / MINUTES_IN_HOUR) % 24, currentMinute % MINUTES_IN_HOUR);
+        return String.format("%02d:%02d", getHourOfDay(), getMinuteOfHour());
     }
 }

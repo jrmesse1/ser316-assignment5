@@ -50,6 +50,7 @@ public class Animal implements Observer {
 
     public void setStatus(AnimalStatus status) {
         this.status = status;
+        if (status == AnimalStatus.AVAILABLE) Logger.log("ANIMAL", String.format("%s is available for adoption", name));
     }
 
     public String getName() {
