@@ -9,8 +9,8 @@ public class Shelter implements Observer {
     private final TaskList taskList = new TaskList();
     private final NameGenerator animalNamer = new NameGenerator("animal_names.txt");
     private final NameGenerator humanNamer = new NameGenerator("staff_names.txt");
-    private final WeightedCoin newAnimalCoin = new WeightedCoin(0.0006);
-    private final WeightedCoin animalAdoptionCoin = new WeightedCoin(0.00065);
+    private final WeightedCoin newAnimalCoin = new WeightedCoin(0.0007);
+    private final WeightedCoin animalAdoptionCoin = new WeightedCoin(0.0004);
 
     /**
      * Create shelter and add all the animals and staff at startup.
@@ -28,6 +28,22 @@ public class Shelter implements Observer {
         for (int i = 0; i < INITIAL_ANIMALS; i++) {
             intakeAnimal();
         }
+    }
+
+    public void printStats() {
+        int adopted = 0;
+        int inShelter = 0;
+        int readyForAdoption = 0;
+        for (Animal animal : animals) {
+            if (animal.getStatus() == AnimalStatus.ADOPTED) {
+                adopted++;
+            } else {
+                inShelter++;
+                if (animal.getStatus() == AnimalStatus.AVAILABLE) readyForAdoption++;
+            }
+        }
+        String formatString = "%d animal(s) have been adopted. There are %d animal(s) in the shelter and %d are available for adoption";
+        Logger.log("SHELTER", String.format(formatString, adopted, inShelter, readyForAdoption));
     }
 
     /**
@@ -75,6 +91,7 @@ public class Shelter implements Observer {
     @Override
     public void update(String event) {
         if (event.equals("day")) {
+            printStats();
             addDailyTaskAssignment();
             taskList.printStats();
         } else if (event.equals("minute")) {
