@@ -65,7 +65,7 @@ public class Shelter implements Observer {
     /**
      * Event where a random new animal joins the Shelter.
      */
-    public void intakeAnimal() {
+    public Animal intakeAnimal() {
         int id = animals.size();
         String name = animalNamer.getName();
         Animal animal = new Animal(id, name);
@@ -75,6 +75,8 @@ public class Shelter implements Observer {
 
         // schedule an intake exam
         TaskList.getInstance().addTask(new TaskIntakeExam(animal));
+
+        return animal;
     }
 
     public void maybeAdoptAnimals() {
@@ -83,6 +85,7 @@ public class Shelter implements Observer {
                 animal.setStatus(AnimalStatus.ADOPTED);
                 String adopterName = humanNamer.getName();
                 Logger.log("SHELTER", String.format("%s the %s was adopted by a person named %s", animal.getName(), animal.getSpecies(), adopterName));
+                return;
             }
         }
     }

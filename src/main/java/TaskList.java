@@ -9,6 +9,13 @@ public class TaskList extends Subject {
         return singletonTaskList;
     }
 
+    /**
+     * Used for tests so tasks are not shared between test runs.
+     */
+    public static void resetInstance() {
+        singletonTaskList = null;
+    }
+
     public String getStats() {
         int completed = 0;
         int inProgress = 0;
