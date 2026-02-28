@@ -3,6 +3,13 @@ import java.util.ArrayList;
 public class TaskList extends Subject {
     private final ArrayList<Task> tasks = new ArrayList<>();
 
+    private static TaskList singletonTaskList;
+
+    public static TaskList getInstance() {
+        if (singletonTaskList == null) singletonTaskList = new TaskList();
+        return singletonTaskList;
+    }
+
     public void printStats() {
         int completed = 0;
         int inProgress = 0;

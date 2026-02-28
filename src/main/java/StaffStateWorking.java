@@ -6,7 +6,9 @@ public class StaffStateWorking extends StaffState {
     }
 
     @Override
-    void update(String event, Staff employee, TaskList taskList) {
+    void update(String event, Staff employee) {
+        TaskList taskList = TaskList.getInstance();
+
         // new task may have come in via Observer, check if there is something to work on
         Task currentTask = taskList.getAssignedTask(employee);
         if (currentTask == null) {

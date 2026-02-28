@@ -2,19 +2,17 @@ public class Staff implements Observer {
     private final int id;
     private final String name;
     private final StaffRole role;
-    private final TaskList taskList;
     // daily work capacity is a little less than a full working day, so tired staff sometimes go home before day_end
     private final int DAILY_WORK_CAPACITY = 60 * 7;
     private StaffState state = new StaffStateAway();
 
-    public Staff(int id, String name, StaffRole role, TaskList taskList) {
+    public Staff(int id, String name, StaffRole role) {
         // connect observer to global clock
         Clock.getInstance().attach(this);
 
         this.id = id;
         this.name = name;
         this.role = role;
-        this.taskList = taskList;
     }
 
     public void resetCapacity() {
@@ -36,7 +34,7 @@ public class Staff implements Observer {
     public void update(String event) {
         // depending on current state they will either respond to new tasks or
         // do nothing because they're away
-        state.update(event, this, taskList);
+        state.update(event, this);
     }
 
     public String getName() {

@@ -6,7 +6,6 @@ public class Shelter implements Observer {
     private static final int INITIAL_STAFF = 3;
     private final ArrayList<Animal> animals;
     private final ArrayList<Staff> staff;
-    private final TaskList taskList = new TaskList();
     private final NameGenerator animalNamer = new NameGenerator("animal_names.txt");
     private final NameGenerator humanNamer = new NameGenerator("staff_names.txt");
     private final WeightedCoin newAnimalCoin = new WeightedCoin(0.0007);
@@ -58,7 +57,7 @@ public class Shelter implements Observer {
         int i = random.nextInt(StaffRole.values().length);
         StaffRole role = StaffRole.values()[i];
 
-        Staff employee = new Staff(id, name, role, taskList);
+        Staff employee = new Staff(id, name, role);
         staff.add(employee);
         Logger.log("SHELTER", String.format("Hired %s as a %s", name, role.toString().toLowerCase()));
     }
@@ -75,7 +74,7 @@ public class Shelter implements Observer {
         Logger.log("SHELTER", String.format("A new %s arrived. Their name is %s. They are %d year(s) old, weigh %d lbs, and are in %s health.", animal.getSpecies(), name, animal.getAge(), animal.getWeight(), animal.getHealth()));
 
         // schedule an intake exam
-        taskList.addTask(new TaskIntakeExam(animal));
+        TaskList.getInstance().addTask(new TaskIntakeExam(animal));
     }
 
     public void maybeAdoptAnimals() {
@@ -93,7 +92,7 @@ public class Shelter implements Observer {
         if (event.equals("day_start")) {
             printStats();
             addDailyTaskAssignment();
-            taskList.printStats();
+            TaskList.getInstance().printStats();
         } else if (event.equals("minute")) {
             if (newAnimalCoin.flip()) intakeAnimal();
             maybeAdoptAnimals();
@@ -106,13 +105,13 @@ public class Shelter implements Observer {
     private void addDailyTaskAssignment() {
         for (Animal animal : animals) {
             if (animal.getStatus() != AnimalStatus.ADOPTED) {
-                taskList.addTask(new TaskDailyExercise(animal));
-                taskList.addTask(new TaskDailyFeeding(animal));
-                taskList.addTask(new TaskEnclosureCleaning(animal));
+                TaskList.getInstance().addTask(new TaskDailyExercise(animal));
+                TaskList.getInstance().addTask(new TaskDailyFeeding(animal));
+                TaskList.getInstance().addTask(new TaskEnclosureCleaning(animal));
             }
 
             if (animal.getStatus() == AnimalStatus.NEEDS_VACCINATION) {
-                taskList.addTask(new TaskVaccination(animal));
+                TaskList.getInstance().addTask(new TaskVaccination(animal));
             }
         }
     }
