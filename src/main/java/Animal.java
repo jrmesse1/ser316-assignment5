@@ -59,6 +59,9 @@ public class Animal implements Observer {
     public void setStatus(AnimalStatus status) {
         this.status = status;
         if (status == AnimalStatus.AVAILABLE) Logger.log("ANIMAL", String.format("%s is available for adoption", name));
+
+        // adopted animals no longer perform actions within the shelter
+        if (status == AnimalStatus.ADOPTED) Clock.getInstance().detach(this);
     }
 
     public String getName() {
@@ -70,7 +73,7 @@ public class Animal implements Observer {
     }
 
     public void update(String event) {
-        if (event.equals("minute") && status != AnimalStatus.ADOPTED && makeNoiseCoin.flip())
+        if (event.equals("minute") && makeNoiseCoin.flip())
             Logger.log("ANIMAL", String.format("%s says %s", name, getNoise()));
     }
 
