@@ -1,4 +1,10 @@
 public class StaffStateWorking extends StaffState {
+    private int capacityRemaining;
+
+    StaffStateWorking(int dailyWorkCapacity) {
+        capacityRemaining = dailyWorkCapacity;
+    }
+
     @Override
     void update(String event, Staff employee, TaskList taskList) {
         // new task may have come in via Observer, check if there is something to work on
@@ -14,10 +20,11 @@ public class StaffStateWorking extends StaffState {
         if (event.equals("day_end")) {
             // didn't use up capacity today, but it's time to go home
             employee.goHomeEndOfDay();
+            return;
         }
 
         if (currentTask != null && event.equals("minute")) {
-            // if time has passed, then do work on the current task and use up capacity
+            // if time has passed, then do work on the current task
             currentTask.decrementTimeRemaining();
             double duration = currentTask.getTimeWorkedHours();
             if (currentTask.isDiscarded()) {
@@ -27,7 +34,13 @@ public class StaffStateWorking extends StaffState {
                 String formatString = "%s completed %s after %.1fh of work";
                 Logger.log("STAFF", String.format(formatString, employee.getName(), currentTask, duration));
             }
-            employee.decrementCapacity();
+
+            // doing work uses up capacity
+            capacityRemaining--;
+            if (capacityRemaining == 0) {
+                // capacity used up, go home
+                employee.goHomeTired();
+            }
         }
     }
 }

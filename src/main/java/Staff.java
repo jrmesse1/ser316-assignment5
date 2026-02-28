@@ -3,11 +3,9 @@ public class Staff implements Observer {
     private final String name;
     private final StaffRole role;
     private final TaskList taskList;
-    private StaffState state = new StaffStateAway();
-
     // daily work capacity is a little less than a full working day, so tired staff sometimes go home before day_end
-    private final int dailyWorkCapacity = 60 * 7;
-    private int capacityRemaining;
+    private final int DAILY_WORK_CAPACITY = 60 * 7;
+    private StaffState state = new StaffStateAway();
 
     public Staff(int id, String name, StaffRole role, TaskList taskList) {
         // connect observer to global clock
@@ -20,18 +18,13 @@ public class Staff implements Observer {
     }
 
     public void resetCapacity() {
-        capacityRemaining = dailyWorkCapacity;
-        state = new StaffStateWorking();
+        state = new StaffStateWorking(DAILY_WORK_CAPACITY);
         Logger.log("STAFF", String.format("%s is back working at the shelter", name));
     }
 
-    public void decrementCapacity() {
-        capacityRemaining--;
-        if (capacityRemaining == 0) {
-            // capacity used up, go home
-            Logger.log("STAFF", String.format("%s is tired and going home for the day", name));
-            state = new StaffStateAway();
-        }
+    public void goHomeTired() {
+        Logger.log("STAFF", String.format("%s is tired and going home for the day", name));
+        state = new StaffStateAway();
     }
 
     public void goHomeEndOfDay() {

@@ -26,14 +26,14 @@ public class TaskList extends Subject {
 
     public Task assignAvailableTask(Staff employee) {
         for (Task task : tasks) {
-            // make sure it still needs to be done
-            task.discardIfNotNeeded();
-
             // skip already completed tasks
             if (task.isComplete()) continue;
 
             // skip already assigned tasks
             if (task.getAssignee() != null) continue;
+
+            // make sure it still needs to be done
+            task.discardIfNotNeeded();
 
             // found a task for the staff to take
             task.setAssignee(employee);
