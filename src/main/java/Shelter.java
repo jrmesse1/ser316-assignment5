@@ -102,7 +102,7 @@ public class Shelter implements Observer {
     /**
      * Assign daily tasks for all the animals.
      */
-    private void addDailyTaskAssignment() {
+    public void addDailyTaskAssignment() {
         for (Animal animal : animals) {
             if (animal.getStatus() != AnimalStatus.ADOPTED) {
                 TaskList.getInstance().addTask(new TaskDailyExercise(animal));
