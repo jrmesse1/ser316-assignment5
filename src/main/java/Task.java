@@ -26,6 +26,7 @@ public abstract class Task {
 
     public void decrementTimeRemaining() {
         timeRemaining--;
+        if (isComplete()) onCompletion(animal);
     }
 
     abstract String getName();
