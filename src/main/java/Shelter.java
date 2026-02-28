@@ -29,7 +29,7 @@ public class Shelter implements Observer {
         }
     }
 
-    public void printStats() {
+    public String getStats() {
         int adopted = 0;
         int inShelter = 0;
         int readyForAdoption = 0;
@@ -42,7 +42,7 @@ public class Shelter implements Observer {
             }
         }
         String formatString = "%d animal(s) have been adopted. There are %d animal(s) in the shelter and %d are available for adoption";
-        Logger.log("SHELTER", String.format(formatString, adopted, inShelter, readyForAdoption));
+        return String.format(formatString, adopted, inShelter, readyForAdoption);
     }
 
     /**
@@ -90,7 +90,7 @@ public class Shelter implements Observer {
     @Override
     public void update(String event) {
         if (event.equals("day_start")) {
-            printStats();
+            Logger.log("SHELTER", getStats());
             addDailyTaskAssignment();
             TaskList.getInstance().printStats();
         } else if (event.equals("minute")) {

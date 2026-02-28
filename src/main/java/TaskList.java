@@ -1,16 +1,15 @@
 import java.util.ArrayList;
 
 public class TaskList extends Subject {
-    private final ArrayList<Task> tasks = new ArrayList<>();
-
     private static TaskList singletonTaskList;
+    private final ArrayList<Task> tasks = new ArrayList<>();
 
     public static TaskList getInstance() {
         if (singletonTaskList == null) singletonTaskList = new TaskList();
         return singletonTaskList;
     }
 
-    public void printStats() {
+    public String getStats() {
         int completed = 0;
         int inProgress = 0;
         int unassigned = 0;
@@ -23,7 +22,12 @@ public class TaskList extends Subject {
                 inProgress++;
             }
         }
-        Logger.log("TASKLIST", String.format("Staff have completed %s tasks. They are working on %s and %s are unassigned.", completed, inProgress, unassigned));
+        String formatString = "Staff have completed %s tasks. They are working on %s and %s are unassigned.";
+        return String.format(formatString, completed, inProgress, unassigned);
+    }
+
+    public void printStats() {
+        Logger.log("TASKLIST", getStats());
     }
 
     public void addTask(Task task) {
