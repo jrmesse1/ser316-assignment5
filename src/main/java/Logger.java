@@ -15,7 +15,7 @@ public class Logger {
     }
 
     public static void log(String entity, String message) {
-        String time = Clock.getInstance().getTime();
+        String time = Clock.getInstance().toString();
         String color = "";
         if (entity.equals("CLOCK")) {
             color = "\n" + ANSI_RED;

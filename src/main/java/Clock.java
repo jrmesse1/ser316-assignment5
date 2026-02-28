@@ -10,11 +10,18 @@ public class Clock extends Subject {
         return singletonClock;
     }
 
+    /**
+     * Used for tests so tasks are not shared between test runs.
+     */
+    public static void resetInstance() {
+        singletonClock = null;
+    }
+
     public void incrementCurrentTime() {
         currentMinute++;
         if (currentMinute % MINUTES_IN_DAY == 0) {
             // print time if we're starting a new day
-            Logger.log("CLOCK",String.format("Starting Day %d", currentMinute / MINUTES_IN_DAY + 1));
+            Logger.log("CLOCK", String.format("Starting Day %d", currentMinute / MINUTES_IN_DAY + 1));
         }
         if (getHourOfDay() == 9 && getMinuteOfHour() == 0) notifyObservers("day_start");
         if (getHourOfDay() == 17 && getMinuteOfHour() == 0) notifyObservers("day_end");
@@ -30,7 +37,8 @@ public class Clock extends Subject {
         return currentMinute % MINUTES_IN_HOUR;
     }
 
-    public String getTime() {
+    @Override
+    public String toString() {
         if (currentMinute < 0) {
             // simulation has not started yet
             return "SETUP";
