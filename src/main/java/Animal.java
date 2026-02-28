@@ -9,23 +9,25 @@ public class Animal implements Observer {
     private final WeightedCoin makeNoiseCoin = new WeightedCoin(0.0013);
     private final AnimalHealth health;
     private AnimalStatus status;
-    public Animal(int id, String name) {
+
+    Animal(int id, String name) {
+        this(id, name, getRandomSpecies());
+    }
+
+    Animal(int id, String name, AnimalSpecies species) {
         // connect observer to global clock
         Clock.getInstance().attach(this);
 
         this.id = id;
         this.name = name;
+        this.species = species;
 
         // new animals start in intake
         this.status = AnimalStatus.INTAKE;
 
-        // get random species
-        Random random = new Random();
-        int i = random.nextInt(AnimalSpecies.values().length);
-        this.species = AnimalSpecies.values()[i];
-
         // get random health
-        i = random.nextInt(AnimalHealth.values().length);
+        Random random = new Random();
+        int i = random.nextInt(AnimalHealth.values().length);
         this.health = AnimalHealth.values()[i];
 
         // get random age
@@ -42,6 +44,12 @@ public class Animal implements Observer {
             // cat or rabbit
             this.weight = random.nextInt(8) + 1;
         }
+    }
+
+    private static AnimalSpecies getRandomSpecies() {
+        Random random = new Random();
+        int i = random.nextInt(AnimalSpecies.values().length);
+        return AnimalSpecies.values()[i];
     }
 
     public AnimalStatus getStatus() {
