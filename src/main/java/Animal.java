@@ -75,6 +75,8 @@ public class Animal implements Observer {
             noise = "chirp";
         } else if (species == AnimalSpecies.SNAKE) {
             noise = "hissss";
+        } else if (species == AnimalSpecies.RABBIT) {
+            noise = "munch munch";
         }
         Logger.log("ANIMAL", String.format("%s says %s", name, noise));
     }
