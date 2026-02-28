@@ -14,6 +14,11 @@ public class TaskIntakeExam extends Task {
     }
 
     @Override
+    boolean isStillNeeded(Animal animal) {
+        return animal.getStatus() == AnimalStatus.INTAKE;
+    }
+
+    @Override
     void onCompletion(Animal animal) {
         animal.setStatus(AnimalStatus.NEEDS_VACCINATION);
     }

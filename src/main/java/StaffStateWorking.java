@@ -19,11 +19,15 @@ public class StaffStateWorking extends StaffState {
         if (currentTask != null && event.equals("minute")) {
             // if time has passed, then do work on the current task and use up capacity
             currentTask.decrementTimeRemaining();
-            employee.decrementCapacity();
-            if (currentTask.isComplete()) {
-                double duration = ((double) currentTask.getDuration()) / 60;
-                Logger.log("STAFF", String.format("%s completed %s after %.1fh of work", employee.getName(), currentTask, duration));
+            double duration = currentTask.getTimeWorkedHours();
+            if (currentTask.isDiscarded()) {
+                String formatString = "%s quit working on %s after %.1fh of work. No longer needs to be done";
+                Logger.log("STAFF", String.format(formatString, employee.getName(), currentTask, duration));
+            } else if (currentTask.isComplete()) {
+                String formatString = "%s completed %s after %.1fh of work";
+                Logger.log("STAFF", String.format(formatString, employee.getName(), currentTask, duration));
             }
+            employee.decrementCapacity();
         }
     }
 }

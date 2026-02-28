@@ -14,6 +14,11 @@ public class TaskDailyFeeding extends Task {
     }
 
     @Override
+    boolean isStillNeeded(Animal animal) {
+        return animal.getStatus() != AnimalStatus.ADOPTED;
+    }
+
+    @Override
     void onCompletion(Animal animal) {
     }
 }

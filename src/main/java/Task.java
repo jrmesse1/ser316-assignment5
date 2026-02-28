@@ -6,6 +6,8 @@ public abstract class Task {
     private Staff assignee;
     // how long is left on the task
     private int timeRemaining;
+    // task was abandoned without finishing
+    private boolean isDiscarded;
 
     Task(Animal animal) {
         this.animal = animal;
@@ -21,17 +23,37 @@ public abstract class Task {
     }
 
     public boolean isComplete() {
-        return timeRemaining == 0;
+        return isDiscarded() || timeRemaining == 0;
+    }
+
+    public boolean isDiscarded() {
+        return isDiscarded;
     }
 
     public void decrementTimeRemaining() {
-        timeRemaining--;
-        if (isComplete()) onCompletion(animal);
+        discardIfNotNeeded();
+        if (!isDiscarded) {
+            timeRemaining--;
+            if (isComplete()) onCompletion(animal);
+        }
+    }
+
+    public void discardIfNotNeeded() {
+        if (!isStillNeeded(animal)) {
+            // task isn't needed anymore. mark as discarded and don't run onCompletion
+            isDiscarded = true;
+        }
+    }
+
+    public double getTimeWorkedHours() {
+        return ((double) getDuration() - timeRemaining) / 60;
     }
 
     abstract String getName();
 
     abstract int getDuration();
+
+    abstract boolean isStillNeeded(Animal animal);
 
     abstract void onCompletion(Animal animal);
 
