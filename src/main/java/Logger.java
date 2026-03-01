@@ -7,6 +7,11 @@ public class Logger {
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_CYAN = "\u001B[36m";
 
+    /**
+     * Print a log message. Message will be colored based on the source.
+     * @param entity String representing the source of the log message.
+     * @param message String containing the content of the log message.
+     */
     public static void log(String entity, String message) {
         String time = Clock.getInstance().toString();
         String color = "";

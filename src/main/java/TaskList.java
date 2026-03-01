@@ -20,6 +20,11 @@ public class TaskList extends Subject {
         singletonTaskList = null;
     }
 
+    /**
+     * Get a string containing statistics about the tasks and their current states.
+     *
+     * @return String describing the state of tasks in the list.
+     */
     public String getStats() {
         int completed = 0;
         int inProgress = 0;
@@ -37,15 +42,30 @@ public class TaskList extends Subject {
         return String.format(formatString, completed, inProgress, unassigned);
     }
 
+    /**
+     * Print the string returned by getStats. This is triggered at the start of each day during the simulation.
+     */
     public void printStats() {
         Logger.log("TASKLIST", getStats());
     }
 
+    /**
+     * Add a new task to the list that can be picked up by Staff. This will trigger an event that Staff listen for.
+     *
+     * @param task The task to add.
+     */
     public void addTask(Task task) {
         tasks.add(task);
         notifyObservers("new_task");
     }
 
+    /**
+     * Find a task for the given staff member to work on. Completed and already assigned tasks will be
+     * skipped. Unneeded tasks that have not already been picked up will be silently discarded.
+     *
+     * @param employee The staff member to assign the task to.
+     * @return The task that was assigned or null if a task cannot be found.
+     */
     public Task assignAvailableTask(Staff employee) {
         for (Task task : tasks) {
             // skip already completed tasks
@@ -67,10 +87,11 @@ public class TaskList extends Subject {
     }
 
     /**
-     * Get the task that the staff member is currently working on.
+     * Get the task that the staff member is currently working on. Assume that each staff member is assigned to at most
+     * one task.
      *
-     * @param employee
-     * @return
+     * @param employee The staff member who may be assigned to a task
+     * @return The task that the staff member is assigned to, or null if they aren't assigned to anything.
      */
     public Task getAssignedTask(Staff employee) {
         for (Task task : tasks) {
