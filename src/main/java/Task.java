@@ -9,6 +9,8 @@ public abstract class Task {
     // task was abandoned without finishing
     private boolean isDiscarded;
 
+    private static final int MINUTES_IN_HOUR = 60;
+
     Task(Animal animal) {
         this.animal = animal;
         timeRemaining = getDuration();
@@ -46,7 +48,7 @@ public abstract class Task {
     }
 
     public double getTimeWorkedHours() {
-        return ((double) getDuration() - timeRemaining) / 60;
+        return ((double) getDuration() - timeRemaining) / MINUTES_IN_HOUR;
     }
 
     abstract String getName();

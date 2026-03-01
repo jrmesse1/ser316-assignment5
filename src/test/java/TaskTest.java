@@ -3,6 +3,13 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TaskTest {
+    private static final int DURATION_DAILY_EXERCISE = 30;
+    private static final int DURATION_DAILY_FEEDING = 10;
+    private static final int DURATION_ENCLOSURE_CLEANING = 100;
+    private static final int DURATION_INTAKE_EXAM = 120;
+    private static final int DURATION_VACCINATION = 30;
+    private static final double MINUTES_IN_HOUR = 60.0;
+
     @Test
     void getAndSetAssignee() {
         Animal animal = new Animal(0, "Tester");
@@ -88,7 +95,7 @@ class TaskTest {
         Task task = new TaskDailyFeeding(animal);
         assertEquals(0.0, task.getTimeWorkedHours());
         task.decrementTimeRemaining();
-        assertEquals(1.0 / 60.0, task.getTimeWorkedHours());
+        assertEquals(1.0 / MINUTES_IN_HOUR, task.getTimeWorkedHours());
     }
 
     @Test
@@ -110,15 +117,15 @@ class TaskTest {
     void getDuration() {
         Animal animal = new Animal(0, "Tester");
         Task task = new TaskDailyExercise(animal);
-        assertEquals(30, task.getDuration());
+        assertEquals(DURATION_DAILY_EXERCISE, task.getDuration());
         task = new TaskDailyFeeding(animal);
-        assertEquals(10, task.getDuration());
+        assertEquals(DURATION_DAILY_FEEDING, task.getDuration());
         task = new TaskEnclosureCleaning(animal);
-        assertEquals(100, task.getDuration());
+        assertEquals(DURATION_ENCLOSURE_CLEANING, task.getDuration());
         task = new TaskIntakeExam(animal);
-        assertEquals(120, task.getDuration());
+        assertEquals(DURATION_INTAKE_EXAM, task.getDuration());
         task = new TaskVaccination(animal);
-        assertEquals(30, task.getDuration());
+        assertEquals(DURATION_VACCINATION, task.getDuration());
     }
 
     @Test

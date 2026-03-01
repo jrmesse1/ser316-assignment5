@@ -10,6 +10,9 @@ public class Animal implements Observer {
     private final AnimalHealth health;
     private AnimalStatus status;
 
+    private static final int MAX_AGE = 10;
+    private static final int MIN_AGE = 1;
+
     private static final double MAX_BIRD_WEIGHT = 0.5;
     private static final double MAX_CAT_WEIGHT = 9;
     private static final double MAX_DOG_WEIGHT = 67;
@@ -43,7 +46,7 @@ public class Animal implements Observer {
         this.health = AnimalHealth.values()[i];
 
         // get random age
-        this.age = random.nextInt(10) + 1;
+        this.age = random.nextInt(MAX_AGE) + MIN_AGE;
 
         double maxWeight, minWeight;
         if (species == AnimalSpecies.BIRD) {

@@ -1,6 +1,9 @@
 public class Clock extends Subject {
+    private static final int HOURS_IN_DAY = 24;
     private static final int MINUTES_IN_HOUR = 60;
-    private static final int MINUTES_IN_DAY = 24 * MINUTES_IN_HOUR;
+    private static final int MINUTES_IN_DAY = HOURS_IN_DAY * MINUTES_IN_HOUR;
+    private static final int START_OF_DAY_HOUR = 9;
+    private static final int END_OF_DAY_HOUR = 17;
 
     private static Clock singletonClock;
     private int currentMinute = -1;
@@ -23,14 +26,14 @@ public class Clock extends Subject {
             // print time if we're starting a new day
             Logger.log("CLOCK", String.format("Starting Day %d", currentMinute / MINUTES_IN_DAY + 1));
         }
-        if (getHourOfDay() == 9 && getMinuteOfHour() == 0) notifyObservers("day_start");
-        if (getHourOfDay() == 17 && getMinuteOfHour() == 0) notifyObservers("day_end");
+        if (getHourOfDay() == START_OF_DAY_HOUR && getMinuteOfHour() == 0) notifyObservers("day_start");
+        if (getHourOfDay() == END_OF_DAY_HOUR && getMinuteOfHour() == 0) notifyObservers("day_end");
         if (getMinuteOfHour() == 0) notifyObservers("hour");
         notifyObservers("minute");
     }
 
     private int getHourOfDay() {
-        return (currentMinute / MINUTES_IN_HOUR) % 24;
+        return (currentMinute / MINUTES_IN_HOUR) % HOURS_IN_DAY;
     }
 
     private int getMinuteOfHour() {
