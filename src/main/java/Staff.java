@@ -9,6 +9,7 @@ public class Staff implements Observer {
     public Staff(int id, String name, StaffRole role) {
         // connect observer to global clock
         Clock.getInstance().attach(this);
+        TaskList.getInstance().attach(this);
 
         this.id = id;
         this.name = name;
