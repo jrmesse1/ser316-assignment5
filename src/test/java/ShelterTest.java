@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -50,13 +51,13 @@ class ShelterTest {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
 
-        while (outputStream.toString().isEmpty()) {
+        while (outputStream.toString(StandardCharsets.UTF_8).isEmpty()) {
             // repeat animal adoption attempt until the coin flip picks an animal
             shelter.maybeAdoptAnimals();
         }
 
         // check log message that was produced
-        assertTrue(outputStream.toString().contains("was adopted by a person named"));
+        assertTrue(outputStream.toString(StandardCharsets.UTF_8).contains("was adopted by a person named"));
 
         // stats should indicate that one animal is adopted
         assertEquals(
