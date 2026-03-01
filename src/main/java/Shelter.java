@@ -71,7 +71,8 @@ public class Shelter implements Observer {
         String name = animalNamer.getName();
         Animal animal = new Animal(id, name);
         animals.add(animal);
-        Logger.log("SHELTER", String.format("A new %s arrived. Their name is %s. They are %d year(s) old, weigh %d lbs, and are in %s health.", animal.getSpecies(), name, animal.getAge(), animal.getWeight(), animal.getHealth()));
+        String formatString = "A new %s arrived. Their name is %s. They are %d year(s) old, weigh %.1f lbs, and are in %s health.";
+        Logger.log("SHELTER", String.format(formatString, animal.getSpecies(), name, animal.getAge(), animal.getWeight(), animal.getHealth()));
 
         // schedule an intake exam
         TaskList.getInstance().addTask(new TaskIntakeExam(animal));

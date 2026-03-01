@@ -5,10 +5,22 @@ public class Animal implements Observer {
     private final String name;
     private final AnimalSpecies species;
     private final int age;
-    private final int weight;
+    private final double weight;
     private final WeightedCoin makeNoiseCoin = new WeightedCoin(0.0013);
     private final AnimalHealth health;
     private AnimalStatus status;
+
+    private static final double MAX_BIRD_WEIGHT = 0.5;
+    private static final double MAX_CAT_WEIGHT = 9;
+    private static final double MAX_DOG_WEIGHT = 67;
+    private static final double MAX_SNAKE_WEIGHT = 3;
+    private static final double MAX_RABBIT_WEIGHT = 8;
+    private static final double MIN_BIRD_WEIGHT = 0.1;
+    private static final double MIN_CAT_WEIGHT = 1;
+    private static final double MIN_DOG_WEIGHT = 1;
+    private static final double MIN_SNAKE_WEIGHT = 1;
+    private static final double MIN_RABBIT_WEIGHT = 1;
+
 
     Animal(int id, String name) {
         this(id, name, getRandomSpecies());
@@ -33,17 +45,27 @@ public class Animal implements Observer {
         // get random age
         this.age = random.nextInt(10) + 1;
 
-        // get random weight
+        double maxWeight, minWeight;
         if (species == AnimalSpecies.BIRD) {
-            this.weight = 0;
+            maxWeight = MAX_BIRD_WEIGHT;
+            minWeight = MIN_BIRD_WEIGHT;
         } else if (species == AnimalSpecies.SNAKE) {
-            this.weight = random.nextInt(3) + 1;
+            maxWeight = MAX_SNAKE_WEIGHT;
+            minWeight = MIN_SNAKE_WEIGHT;
         } else if (species == AnimalSpecies.DOG) {
-            this.weight = random.nextInt(65) + 5;
+            maxWeight = MAX_DOG_WEIGHT;
+            minWeight = MIN_DOG_WEIGHT;
+        } else if (species == AnimalSpecies.CAT) {
+            maxWeight = MAX_CAT_WEIGHT;
+            minWeight = MIN_CAT_WEIGHT;
         } else {
-            // cat or rabbit
-            this.weight = random.nextInt(8) + 1;
+            // rabbit or some other species
+            maxWeight = MAX_RABBIT_WEIGHT;
+            minWeight = MIN_RABBIT_WEIGHT;
         }
+
+        // get random weight within bounds
+        this.weight = random.nextDouble(maxWeight) + minWeight;
     }
 
     private static AnimalSpecies getRandomSpecies() {
@@ -92,7 +114,7 @@ public class Animal implements Observer {
         }
     }
 
-    public int getWeight() {
+    public double getWeight() {
         return this.weight;
     }
 
