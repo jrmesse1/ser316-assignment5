@@ -14,6 +14,8 @@ public class Shelter implements Observer {
     /**
      * Create shelter and populate it with animals and staff at startup. This is called by Main. It is expected that
      * only one Shelter exists in the simulation.
+     *
+     * This covers requirement R1.1 (start with at least 5 animals)
      */
     public Shelter() {
         // connect observer to global clock

@@ -3,6 +3,10 @@ import java.util.Random;
 public class WeightedCoin {
     private final double winFraction;
 
+    /**
+     * Initialize the coin.
+     * @param winFraction Fraction of flips that should win. One means all flips win. Zero means no flips win.
+     */
     public WeightedCoin(double winFraction) {
         this.winFraction = winFraction;
     }

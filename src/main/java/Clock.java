@@ -24,6 +24,10 @@ public class Clock extends Subject {
         singletonClock = null;
     }
 
+    /**
+     * Increase the current time by 1 minute and notify observers that the simulation time has changed. Observers will
+     * be told when a minute has passed, when an hour has passed, when a new day has started, and when a day ends.
+     */
     public void incrementCurrentTime() {
         currentMinute++;
         if (currentMinute % MINUTES_IN_DAY == 0) {

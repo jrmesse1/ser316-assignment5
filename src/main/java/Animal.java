@@ -81,6 +81,11 @@ public class Animal implements Observer {
         return status;
     }
 
+    /**
+     * Update the adoption-related status of the Animal. This will print a log message when an Animal is adoptable.
+     *
+     * @param status The new status that the animal should have.
+     */
     public void setStatus(AnimalStatus status) {
         this.status = status;
         if (status == AnimalStatus.AVAILABLE) Logger.log("ANIMAL", String.format("%s is available for adoption", name));
@@ -107,6 +112,11 @@ public class Animal implements Observer {
             Logger.log("ANIMAL", String.format("%s says %s", name, getNoise()));
     }
 
+    /**
+     * Determine which noise the animal should make, based on its species.
+     *
+     * @return String representing an animal noise.
+     */
     public String getNoise() {
         if (species == AnimalSpecies.DOG) {
             return "woof";
