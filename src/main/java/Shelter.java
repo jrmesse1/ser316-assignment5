@@ -41,7 +41,8 @@ public class Shelter implements Observer {
                 if (animal.getStatus() == AnimalStatus.AVAILABLE) readyForAdoption++;
             }
         }
-        String formatString = "%d animal(s) have been adopted. There are %d animal(s) in the shelter and %d are available for adoption";
+        String formatString = "%d animal(s) have been adopted. " +
+                "There are %d animal(s) in the shelter and %d are available for adoption";
         return String.format(formatString, adopted, inShelter, readyForAdoption);
     }
 

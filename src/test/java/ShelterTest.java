@@ -4,7 +4,8 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ShelterTest {
     @BeforeEach
@@ -17,7 +18,9 @@ class ShelterTest {
         Shelter shelter = new Shelter();
 
         // at startup there should be 5 animals
-        assertEquals("0 animal(s) have been adopted. There are 5 animal(s) in the shelter and 0 are available for adoption", shelter.getStats());
+        assertEquals(
+                "0 animal(s) have been adopted. There are 5 animal(s) in the shelter and 0 are available for adoption",
+                shelter.getStats());
     }
 
     @Test
@@ -39,7 +42,9 @@ class ShelterTest {
         animal.setStatus(AnimalStatus.AVAILABLE);
 
         // stats should indicate that no animals are adopted
-        assertEquals("0 animal(s) have been adopted. There are 6 animal(s) in the shelter and 1 are available for adoption", shelter.getStats());
+        assertEquals(
+                "0 animal(s) have been adopted. There are 6 animal(s) in the shelter and 1 are available for adoption",
+                shelter.getStats());
 
         // redirect output to capture logs
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -54,7 +59,9 @@ class ShelterTest {
         assertTrue(outputStream.toString().contains("was adopted by a person named"));
 
         // stats should indicate that one animal is adopted
-        assertEquals("1 animal(s) have been adopted. There are 5 animal(s) in the shelter and 0 are available for adoption", shelter.getStats());
+        assertEquals(
+                "1 animal(s) have been adopted. There are 5 animal(s) in the shelter and 0 are available for adoption",
+                shelter.getStats());
 
         // reset output
         System.setOut(System.out);
