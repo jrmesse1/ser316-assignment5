@@ -1,8 +1,7 @@
 public abstract class Task {
     // animal that the task is for
     private final Animal animal;
-    // how long the task should take
-    int duration;
+    // which staff member the task is assigned to
     private Staff assignee;
     // how long is left on the task
     private int timeRemaining;
