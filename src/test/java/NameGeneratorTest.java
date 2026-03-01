@@ -1,13 +1,13 @@
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class NameGeneratorTest {
 
     @Test
     void getName() {
         NameGenerator nameGenerator = new NameGenerator("staff_names.txt");
-        String staffName1 =  nameGenerator.getName();
+        String staffName1 = nameGenerator.getName();
         String staffName2 = nameGenerator.getName();
 
         // names should not repeat
