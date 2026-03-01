@@ -1,4 +1,6 @@
 public class TaskDailyFeeding extends Task {
+    private static final int DURATION = 10;
+
     TaskDailyFeeding(Animal animal) {
         super(animal);
     }
@@ -10,7 +12,7 @@ public class TaskDailyFeeding extends Task {
 
     @Override
     int getDuration() {
-        return 10;
+        return DURATION;
     }
 
     @Override

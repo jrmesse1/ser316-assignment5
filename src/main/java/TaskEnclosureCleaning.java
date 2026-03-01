@@ -1,4 +1,6 @@
 public class TaskEnclosureCleaning extends Task {
+    private static final int DURATION = 100;
+
     TaskEnclosureCleaning(Animal animal) {
         super(animal);
     }
@@ -10,7 +12,7 @@ public class TaskEnclosureCleaning extends Task {
 
     @Override
     int getDuration() {
-        return 100;
+        return DURATION;
     }
 
     @Override

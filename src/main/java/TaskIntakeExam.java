@@ -1,4 +1,6 @@
 public class TaskIntakeExam extends Task {
+    private static final int DURATION = 120;
+
     TaskIntakeExam(Animal animal) {
         super(animal);
     }
@@ -10,7 +12,7 @@ public class TaskIntakeExam extends Task {
 
     @Override
     int getDuration() {
-        return 120;
+        return DURATION;
     }
 
     @Override

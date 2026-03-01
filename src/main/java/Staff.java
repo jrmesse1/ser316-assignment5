@@ -3,7 +3,7 @@ public class Staff implements Observer {
     private final String name;
     private final StaffRole role;
     // daily work capacity is a little less than a full working day, so tired staff sometimes go home before day_end
-    private final int DAILY_WORK_CAPACITY = 60 * 7;
+    private static final int DAILY_WORK_CAPACITY = 60 * 7;
     private StaffState state = new StaffStateAway();
 
     public Staff(int id, String name, StaffRole role) {
