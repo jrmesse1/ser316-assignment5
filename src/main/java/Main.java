@@ -10,7 +10,7 @@ public class Main {
      */
     public static void main(String[] args) {
         Clock clock = Clock.getInstance();
-        Shelter shelter = new Shelter();
+        new Shelter();
         Logger.log("WORLD", "Starting Simulation");
 
         for (int i = 0; i < SIMULATION_LENGTH_MINUTES; i++) {

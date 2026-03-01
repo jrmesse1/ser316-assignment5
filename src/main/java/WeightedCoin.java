@@ -2,6 +2,7 @@ import java.util.Random;
 
 public class WeightedCoin {
     private final double winFraction;
+    private static Random rand = new Random();
 
     /**
      * Initialize the coin.
@@ -16,7 +17,6 @@ public class WeightedCoin {
      * @return True for a winning flip, false otherwise.
      */
     public boolean flip() {
-        Random random = new Random();
-        return winFraction >= (random.nextDouble());
+        return winFraction >= (rand.nextDouble());
     }
 }

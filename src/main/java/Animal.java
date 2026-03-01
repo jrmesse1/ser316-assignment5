@@ -10,6 +10,8 @@ public class Animal implements Observer {
     private final AnimalHealth health;
     private AnimalStatus status;
 
+    private static Random rand = new Random();
+
     private static final int MAX_AGE = 10;
     private static final int MIN_AGE = 1;
 
@@ -41,12 +43,11 @@ public class Animal implements Observer {
         this.status = AnimalStatus.INTAKE;
 
         // get random health
-        Random random = new Random();
-        int i = random.nextInt(AnimalHealth.values().length);
+        int i = rand.nextInt(AnimalHealth.values().length);
         this.health = AnimalHealth.values()[i];
 
         // get random age
-        this.age = random.nextInt(MAX_AGE) + MIN_AGE;
+        this.age = rand.nextInt(MAX_AGE) + MIN_AGE;
 
         double maxWeight, minWeight;
         if (species == AnimalSpecies.BIRD) {
@@ -68,12 +69,11 @@ public class Animal implements Observer {
         }
 
         // get random weight within bounds
-        this.weight = random.nextDouble(maxWeight) + minWeight;
+        this.weight = rand.nextDouble(maxWeight) + minWeight;
     }
 
     private static AnimalSpecies getRandomSpecies() {
-        Random random = new Random();
-        int i = random.nextInt(AnimalSpecies.values().length);
+        int i = rand.nextInt(AnimalSpecies.values().length);
         return AnimalSpecies.values()[i];
     }
 

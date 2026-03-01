@@ -11,6 +11,8 @@ public class Shelter implements Observer {
     private final WeightedCoin newAnimalCoin = new WeightedCoin(0.0007);
     private final WeightedCoin animalAdoptionCoin = new WeightedCoin(0.0004);
 
+    private static Random rand = new Random();
+
     /**
      * Create shelter and populate it with animals and staff at startup. This is called by Main. It is expected that
      * only one Shelter exists in the simulation.
@@ -63,8 +65,7 @@ public class Shelter implements Observer {
         String name = humanNamer.getName();
 
         // get random role
-        Random random = new Random();
-        int i = random.nextInt(StaffRole.values().length);
+        int i = rand.nextInt(StaffRole.values().length);
         StaffRole role = StaffRole.values()[i];
 
         Staff employee = new Staff(id, name, role);

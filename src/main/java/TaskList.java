@@ -4,11 +4,17 @@ public class TaskList extends Subject {
     private static TaskList singletonTaskList;
     private final ArrayList<Task> tasks = new ArrayList<>();
 
+    private TaskList() {}
+
     /**
      * Get the shared global instance of the TaskList. Used for the Singleton pattern.
      * @return TaskList instance shared throughout the simulation.
      */
-    public static TaskList getInstance() {
+    public static synchronized TaskList getInstance() {
+        return maybeInitializeTaskList();
+    }
+
+    private static synchronized TaskList maybeInitializeTaskList() {
         if (singletonTaskList == null) singletonTaskList = new TaskList();
         return singletonTaskList;
     }
