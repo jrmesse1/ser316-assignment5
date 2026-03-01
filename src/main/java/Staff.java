@@ -32,6 +32,11 @@ public class Staff implements Observer {
         state = new StaffStateAway();
     }
 
+    /**
+     * Process an event from a Subject that this Observer is attached to.
+     * @param event String describing the source of the event.
+     */
+    @Override
     public void update(String event) {
         // depending on current state they will either respond to new tasks or
         // do nothing because they're away

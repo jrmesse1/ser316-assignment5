@@ -12,7 +12,8 @@ public class Shelter implements Observer {
     private final WeightedCoin animalAdoptionCoin = new WeightedCoin(0.0004);
 
     /**
-     * Create shelter and add all the animals and staff at startup.
+     * Create shelter and populate it with animals and staff at startup. This is called by Main. It is expected that
+     * only one Shelter exists in the simulation.
      */
     public Shelter() {
         // connect observer to global clock
@@ -29,6 +30,12 @@ public class Shelter implements Observer {
         }
     }
 
+    /**
+     * Get a string containing statistics about the animals in the shelter. This is printed out at the start of each
+     * day. It is also used in tests.
+     *
+     * @return String describing status of animals in the shelter.
+     */
     public String getStats() {
         int adopted = 0;
         int inShelter = 0;
@@ -47,7 +54,7 @@ public class Shelter implements Observer {
     }
 
     /**
-     * Event where we hire a staff member.
+     * Event where we hire a staff member with a random name and role.
      */
     public void hireStaff() {
         int id = staff.size();
@@ -64,7 +71,9 @@ public class Shelter implements Observer {
     }
 
     /**
-     * Event where a random new animal joins the Shelter.
+     * Event where a random new random animal joins the Shelter.
+     *
+     * @return The animal that arrived.
      */
     public Animal intakeAnimal() {
         int id = animals.size();
@@ -82,6 +91,11 @@ public class Shelter implements Observer {
         return animal;
     }
 
+    /**
+     * Gives each animal in the shelter a random chance for adoption. No more than one animal will be adopted within a
+     * single function call, but the chance of some animal getting adopted increases as the population of the shelter
+     * increases.
+     */
     public void maybeAdoptAnimals() {
         for (Animal animal : animals) {
             if (animal.getStatus() == AnimalStatus.AVAILABLE && animalAdoptionCoin.flip()) {
@@ -94,6 +108,10 @@ public class Shelter implements Observer {
         }
     }
 
+    /**
+     * Process an event from a Subject that this Observer is attached to.
+     * @param event String describing the source of the event.
+     */
     @Override
     public void update(String event) {
         if (event.equals("day_start")) {

@@ -97,6 +97,11 @@ public class Animal implements Observer {
         return species.toString().toLowerCase();
     }
 
+    /**
+     * Process an event from a Subject that this Observer is attached to.
+     * @param event String describing the source of the event.
+     */
+    @Override
     public void update(String event) {
         if (event.equals("minute") && makeNoiseCoin.flip())
             Logger.log("ANIMAL", String.format("%s says %s", name, getNoise()));

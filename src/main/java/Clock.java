@@ -8,6 +8,10 @@ public class Clock extends Subject {
     private static Clock singletonClock;
     private int currentMinute = -1;
 
+    /**
+     * Get the shared global instance of the Clock. Used for the Singleton pattern.
+     * @return Clock instance shared throughout the simulation.
+     */
     public static Clock getInstance() {
         if (singletonClock == null) singletonClock = new Clock();
         return singletonClock;

@@ -31,6 +31,11 @@ public abstract class Task {
         return isDiscarded;
     }
 
+    /**
+     * Decrease the amount of time remaining in the task by 1 minute. If the task reaches no time remaining the
+     * onCompletion handler will be called. If the task isn't needed according to isStillNeeded the task will be
+     * discarded without calling the onCompletion handler.
+     */
     public void decrementTimeRemaining() {
         discardIfNotNeeded();
         if (!isDiscarded) {
@@ -39,6 +44,9 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Call the isStillNeeded check and mark the task as discarded if the task no longer needs to be done.
+     */
     public void discardIfNotNeeded() {
         if (!isStillNeeded(animal)) {
             // task isn't needed anymore. mark as discarded and don't run onCompletion
