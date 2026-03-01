@@ -129,6 +129,8 @@ public class Shelter implements Observer {
 
     /**
      * Assign daily tasks for all the animals.
+     *
+     * This covers requirement R4.1 (provide basic care actions) and R4.2 (schedule a simple medical action)
      */
     public void addDailyTaskAssignment() {
         for (Animal animal : animals) {

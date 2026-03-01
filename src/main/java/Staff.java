@@ -9,6 +9,8 @@ public class Staff implements Observer {
     /**
      * Create a new staff member.
      *
+     * This sets the role for the staff, which covers R2.1 (define at least two staff roles).
+     *
      * @param id Unique number identifying the staff member.
      * @param name Human-readable name for the staff member.
      * @param role What job the staff member has at the shelter.

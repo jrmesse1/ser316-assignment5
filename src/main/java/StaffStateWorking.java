@@ -1,4 +1,6 @@
 public class StaffStateWorking extends StaffState {
+    // Number of minutes of capacity left for the rest of the day
+    // This covers R2.2 (each staff member has a capacity)
     private int capacityRemaining;
 
     StaffStateWorking(int dailyWorkCapacity) {

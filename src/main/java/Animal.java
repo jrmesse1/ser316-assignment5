@@ -31,6 +31,15 @@ public class Animal implements Observer {
         this(id, name, getRandomSpecies());
     }
 
+    /**
+     * Initialize a new animal with random attributes for tracking.
+     *
+     * This covers requirement R1.1 (track basic attributes)
+     *
+     * @param id Unique integer identifier
+     * @param name Human-readable name for the animal
+     * @param species Species of the animal
+     */
     Animal(int id, String name, AnimalSpecies species) {
         // connect observer to global clock
         Clock.getInstance().attach(this);
@@ -83,6 +92,8 @@ public class Animal implements Observer {
 
     /**
      * Update the adoption-related status of the Animal. This will print a log message when an Animal is adoptable.
+     *
+     * This covers requirement R1.3 (maintain status for each animal)
      *
      * @param status The new status that the animal should have.
      */
